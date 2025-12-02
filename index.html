@@ -4,7 +4,430 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>hedgehop - Streaming musical indépendant</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #000;
+  color: #fff;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 100%;
+}
+
+/* Header */
+header {
+  background: rgba(0, 0, 0, 0.95);
+  padding: 20px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid #1a1a1a;
+}
+
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: clamp(20px, 5vw, 24px);
+  font-weight: 700;
+  color: #1e40ff;
+}
+
+nav {
+  display: flex;
+  gap: clamp(15px, 3vw, 30px);
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: #aaa;
+  text-decoration: none;
+  transition: color 0.3s;
+  font-size: clamp(14px, 2vw, 16px);
+}
+
+nav a:hover {
+  color: #fff;
+}
+
+/* Hero */
+.hero {
+  padding: clamp(60px, 15vw, 100px) 0 clamp(40px, 10vw, 60px);
+  text-align: center;
+}
+
+.hero h2 {
+  font-size: clamp(32px, 8vw, 64px);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.hero p {
+  font-size: clamp(16px, 3vw, 20px);
+  color: #aaa;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* About section */
+.about {
+  padding: clamp(60px, 12vw, 80px) 0;
+}
+
+.about-content {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  align-items: center;
+}
+
+.about-text {
+  width: 100%;
+  max-width: 600px;
+}
+
+.about-text h3 {
+  font-size: clamp(28px, 5vw, 36px);
+  margin-bottom: 20px;
+  color: #1e40ff;
+}
+
+.about-text p {
+  margin-bottom: 16px;
+  color: #ccc;
+  line-height: 1.8;
+  font-size: clamp(14px, 2.5vw, 16px);
+}
+
+.about-text ul {
+  list-style: none;
+  margin-top: 24px;
+}
+
+.about-text li {
+  padding: 8px 0;
+  padding-left: 24px;
+  position: relative;
+  color: #ccc;
+  font-size: clamp(14px, 2.5vw, 16px);
+}
+
+.about-text li:before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: #1e40ff;
+}
+
+/* Carousel */
+.carousel-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.carousel {
+  position: relative;
+  width: 100%;
+  background: #0a0a0a;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(30, 64, 255, 0.3);
+}
+
+.carousel-slides {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+}
+
+.slide {
+  display: none;
+  width: 100%;
+  height: 100%;
+  animation: fadeIn 0.5s;
+}
+
+.slide.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.slide-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+  padding: 30px 20px 20px;
+  text-align: center;
+  font-size: clamp(12px, 2vw, 14px);
+  color: #fff;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: none;
+  font-size: clamp(24px, 5vw, 32px);
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background 0.3s;
+  z-index: 10;
+  line-height: 1;
+  border-radius: 5px;
+}
+
+.carousel-btn:hover {
+  background: rgba(30, 64, 255, 0.8);
+}
+
+.carousel-btn.prev {
+  left: 10px;
+}
+
+.carousel-btn.next {
+  right: 10px;
+}
+
+.carousel-dots {
+  text-align: center;
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #333;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.dot.active {
+  background: #1e40ff;
+}
+
+.dot:hover {
+  background: #1e40ff;
+}
+
+/* Features */
+.features {
+  padding: clamp(60px, 12vw, 80px) 0;
+  background: #0a0a0a;
+}
+
+.features h3 {
+  font-size: clamp(28px, 5vw, 36px);
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+  gap: clamp(20px, 4vw, 40px);
+}
+
+.feature {
+  padding: clamp(20px, 4vw, 30px);
+  background: #000;
+  border: 1px solid #1a1a1a;
+  border-radius: 12px;
+  transition: border-color 0.3s;
+}
+
+.feature:hover {
+  border-color: #1e40ff;
+}
+
+.feature h4 {
+  font-size: clamp(20px, 3vw, 24px);
+  margin-bottom: 12px;
+  color: #1e40ff;
+}
+
+.feature p {
+  color: #aaa;
+  line-height: 1.7;
+  font-size: clamp(14px, 2.5vw, 16px);
+}
+
+/* Download section */
+.download {
+  padding: clamp(60px, 15vw, 100px) 0;
+  text-align: center;
+}
+
+.download h3 {
+  font-size: clamp(32px, 6vw, 48px);
+  margin-bottom: 20px;
+}
+
+.download p {
+  font-size: clamp(16px, 3vw, 20px);
+  color: #aaa;
+  margin-bottom: 40px;
+  padding: 0 20px;
+}
+
+.cta-btn {
+  display: inline-block;
+  background: #1e40ff;
+  color: #fff;
+  text-decoration: none;
+  padding: clamp(14px, 2vw, 16px) clamp(30px, 5vw, 40px);
+  font-size: clamp(16px, 2.5vw, 18px);
+  font-weight: 600;
+  border-radius: 8px;
+  transition: transform 0.2s, box-shadow 0.3s;
+}
+
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(30, 64, 255, 0.4);
+}
+
+/* Footer */
+footer {
+  padding: 40px 0;
+  border-top: 1px solid #1a1a1a;
+  background: #000;
+}
+
+footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+footer p {
+  color: #666;
+  font-size: clamp(12px, 2vw, 14px);
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  color: #666;
+  text-decoration: none;
+  transition: color 0.3s;
+  font-size: clamp(12px, 2vw, 14px);
+}
+
+.footer-links a:hover {
+  color: #fff;
+}
+
+/* Responsive - grand écran */
+@media (min-width: 768px) {
+  .about-content {
+    flex-direction: row;
+    align-items: start;
+  }
+  
+  .about-text {
+    flex: 1;
+  }
+  
+  .carousel-container {
+    flex: 1;
+  }
+}
+
+/* Responsive - petit écran */
+@media (max-width: 767px) {
+  header .container {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  nav {
+    justify-content: center;
+  }
+  
+  .about-content {
+    flex-direction: column-reverse;
+  }
+  
+  .carousel-container {
+    max-width: 90%;
+    margin-bottom: 20px;
+  }
+  
+  footer .container {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .footer-links {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-btn {
+    padding: 8px 12px;
+  }
+  
+  .carousel-btn.prev {
+    left: 5px;
+  }
+  
+  .carousel-btn.next {
+    right: 5px;
+  }
+}
+    </style>
 </head>
 <body>
     <header>
@@ -46,41 +469,39 @@
                         <div class="carousel">
                             <button class="carousel-btn prev" onclick="moveSlide(-1)">‹</button>
                             <div class="carousel-slides">
-                                <!-- Using direct blob URLs for images -->
                                 <div class="slide active">
-                                    <a href="https://ibb.co/PZxS6jNn"><img src="https://i.ibb.co/xSh47LD0/Home.jpg" alt="Home" border="0"></a>
+                                    <img src="https://i.ibb.co/xSh47LD0/Home.jpg" alt="Home">
                                     <p class="slide-caption">Bibliothèque musicale complète</p>
                                 </div>
                                 <div class="slide">
-                                    <a href="https://ibb.co/gM4hJynF"><img src="https://i.ibb.co/8DYt9Mh4/Album.jpg" alt="Album" border="0"></a>
+                                    <img src="https://i.ibb.co/8DYt9Mh4/Album.jpg" alt="Album">
                                     <p class="slide-caption">Navigation par album</p>
                                 </div>
                                 <div class="slide">
-                                    <a href="https://ibb.co/yc8BYJVN"><img src="https://i.ibb.co/ksh69FMG/Player-Screen.jpg" alt="Player-Screen" border="0"></a>
+                                    <img src="https://i.ibb.co/ksh69FMG/Player-Screen.jpg" alt="Player Screen">
                                     <p class="slide-caption">Lecteur minimaliste</p>
                                 </div>
                                 <div class="slide">
-                                    <a href="https://ibb.co/2YS9HCd2"><img src="https://i.ibb.co/zHFMDBZc/Playlist.jpg" alt="Playlist" border="0"></a>
+                                    <img src="https://i.ibb.co/zHFMDBZc/Playlist.jpg" alt="Playlist">
                                     <p class="slide-caption">Gestion des playlists</p>
                                 </div>
                                 <div class="slide">
-                                    <a href="https://ibb.co/7dkFwWVy"><img src="https://i.ibb.co/DHrnxCkK/Favorites.jpg" alt="Favorites" border="0"></a>
+                                    <img src="https://i.ibb.co/DHrnxCkK/Favorites.jpg" alt="Favorites">
                                     <p class="slide-caption">Vos morceaux favoris</p>
                                 </div>
                                 <div class="slide">
-                                    <a href="https://ibb.co/Kc4PmdrW"><img src="https://i.ibb.co/zW9MNp4Z/Cross-Party.jpg" alt="Cross-Party" border="0"></a>
+                                    <img src="https://i.ibb.co/zW9MNp4Z/Cross-Party.jpg" alt="Cross Party">
                                     <p class="slide-caption">Écoute en groupe avec CrossParty</p>
                                 </div>
                                 <div class="slide">
-                                    <a href="https://ibb.co/cSSPMQGM"><img src="https://i.ibb.co/8LLJT9WT/Stats.jpg" alt="Stats" border="0"></a>
+                                    <img src="https://i.ibb.co/8LLJT9WT/Stats.jpg" alt="Stats">
                                     <p class="slide-caption">Statistiques d'écoute détaillées</p>
                                 </div>
                                 <div class="slide">
-                                    <a href="https://ibb.co/Q2QBwrV"><img src="https://i.ibb.co/fhFRw4W/News.jpg" alt="News" border="0"></a>
+                                    <img src="https://i.ibb.co/fhFRw4W/News.jpg" alt="News">
                                     <p class="slide-caption">Actualités et mises à jour</p>
                                 </div>
                             </div>
-                        <!--début carousel bouton-->
                             <button class="carousel-btn next" onclick="moveSlide(1)">›</button>
                         </div>
                         <div class="carousel-dots">
@@ -122,21 +543,21 @@
             </div>
         </section>
 
-<section id="download" class="download">
-    <div class="container">
-        <h3>Prêt à essayer ?</h3>
-        <p>Hedgehop est maintenant disponible en téléchargement.</p>
-        <a href="https://github.com/ShadowHedgehog76/Hedgehop/releases/tag/V1.0.2" 
-           class="cta-btn" target="_blank">
-            Télécharger Hedgehop
-        </a>
-    </div>
-</section>
-
+        <section id="download" class="download">
+            <div class="container">
+                <h3>Prêt à essayer ?</h3>
+                <p>Hedgehop est maintenant disponible en téléchargement.</p>
+                <a href="https://github.com/ShadowHedgehog76/Hedgehop/releases/tag/V1.0.2" 
+                   class="cta-btn" target="_blank">
+                    Télécharger Hedgehop
+                </a>
+            </div>
+        </section>
+    </main>
 
     <footer>
         <div class="container">
-            <p>Hedgehop &copy; 2025 - Projet indépendant</p>
+            <p>Hedgehop © 2025 - Projet indépendant</p>
             <p>Design - Guylann BRESON</p>
             <div class="footer-links">
                 <a href="#">Contact</a>
@@ -146,6 +567,31 @@
         </div>
     </footer>
 
-    <script src="carousel.js"></script>
+    <script>
+let currentSlideIndex = 0;
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.dot');
+
+function showSlide(index) {
+    slides.forEach(slide => slide.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
+    
+    if (index >= slides.length) currentSlideIndex = 0;
+    if (index < 0) currentSlideIndex = slides.length - 1;
+    
+    slides[currentSlideIndex].classList.add('active');
+    dots[currentSlideIndex].classList.add('active');
+}
+
+function moveSlide(direction) {
+    currentSlideIndex += direction;
+    showSlide(currentSlideIndex);
+}
+
+function currentSlide(index) {
+    currentSlideIndex = index;
+    showSlide(currentSlideIndex);
+}
+    </script>
 </body>
 </html>
