@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hedgehop - Streaming musical indépendant</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">hedgehop</h1>
+            <nav>
+                <a href="#about">À propos</a>
+                <a href="#features">Fonctionnalités</a>
+                <a href="#download">Télécharger</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h2>Streaming musical.<br>Sans compromis.</h2>
+                <p>Une alternative indépendante pour écouter votre musique préférée. Créée par des passionnés, pour les passionnés.</p>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3>Pourquoi hedgehop ?</h3>
+                        <p>hedgehop est un projet indépendant né de l'envie de créer une vraie alternative aux géants du streaming. Pas de publicités intrusives, pas d'algorithmes qui décident pour vous, juste votre musique.</p>
+                        <p>Développé par un développeur solo, hedgehop met l'accent sur ce qui compte vraiment : l'expérience d'écoute, les statistiques détaillées de vos habitudes musicales, et le partage avec vos amis grâce à CrossParty.</p>
+                        <ul>
+                          <li>Interface épurée et intuitive</li>
+                          <li>Statistiques d'écoute détaillées</li>
+                          <li>Mode écoute partagée (CrossParty)</li>
+                          <li>Pas de pub, jamais</li>
+                          <li>Playlists intelligentes</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="carousel-container">
+                        <div class="carousel">
+                            <button class="carousel-btn prev" onclick="moveSlide(-1)">‹</button>
+                            <div class="carousel-slides">
+                                <!-- Using direct blob URLs for images -->
+                                <div class="slide active">
+                                    <img src="/images/home.jpg" alt="Écran d'accueil">
+                                    <p class="slide-caption">Bibliothèque musicale complète</p>
+                                </div>
+                                <div class="slide">
+                                    <img src="/images/album.jpg" alt="Album">
+                                    <p class="slide-caption">Navigation par album</p>
+                                </div>
+                                <div class="slide">
+                                    <img src="/images/playerscreen.jpg" alt="Lecteur">
+                                    <p class="slide-caption">Lecteur minimaliste</p>
+                                </div>
+                                <div class="slide">
+                                    <img src="/images/playlist.jpg" alt="Playlist">
+                                    <p class="slide-caption">Gestion des playlists</p>
+                                </div>
+                                <div class="slide">
+                                    <img src="/images/favorites.jpg" alt="Favoris">
+                                    <p class="slide-caption">Vos morceaux favoris</p>
+                                </div>
+                                <div class="slide">
+                                    <img src="/images/crossparty.jpg" alt="CrossParty">
+                                    <p class="slide-caption">Écoute en groupe avec CrossParty</p>
+                                </div>
+                                <div class="slide">
+                                    <img src="/images/stats.jpg" alt="Stats">
+                                    <p class="slide-caption">Statistiques d'écoute détaillées</p>
+                                </div>
+                                <div class="slide">
+                                    <img src="/images/news.jpg" alt="News">
+                                    <p class="slide-caption">Actualités et mises à jour</p>
+                                </div>
+                            </div>
+                            <button class="carousel-btn next" onclick="moveSlide(1)">›</button>
+                        </div>
+                        <div class="carousel-dots">
+                            <span class="dot active" onclick="currentSlide(0)"></span>
+                            <span class="dot" onclick="currentSlide(1)"></span>
+                            <span class="dot" onclick="currentSlide(2)"></span>
+                            <span class="dot" onclick="currentSlide(3)"></span>
+                            <span class="dot" onclick="currentSlide(4)"></span>
+                            <span class="dot" onclick="currentSlide(5)"></span>
+                            <span class="dot" onclick="currentSlide(6)"></span>
+                            <span class="dot" onclick="currentSlide(7)"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="container">
+                <h3>Ce qui rend hedgehop différent</h3>
+                <div class="features-grid">
+                    <div class="feature">
+                        <h4>CrossParty</h4>
+                        <p>Écoutez de la musique en simultané avec vos amis. Créez une room, partagez le code, et profitez ensemble.</p>
+                    </div>
+                    <div class="feature">
+                        <h4>Stats avancées</h4>
+                        <p>Suivez votre temps d'écoute, vos artistes favoris, vos streaks. Découvrez vos habitudes musicales.</p>
+                    </div>
+                    <div class="feature">
+                        <h4>Sans pub</h4>
+                        <p>Zéro publicité. Jamais. Votre expérience d'écoute ne sera jamais interrompue.</p>
+                    </div>
+                    <div class="feature">
+                        <h4>Indie</h4>
+                        <p>Développé indépendamment, sans investisseurs. L'app évolue selon les retours de la communauté.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="download" class="download">
+            <div class="container">
+                <h3>Prêt à essayer ?</h3>
+                <p>hedgehop est actuellement en bêta fermée. Inscrivez-vous pour être notifié du lancement.</p>
+                <button class="cta-btn">Rejoindre la liste d'attente</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>hedgehop &copy; 2025 - Projet indépendant</p>
+            <div class="footer-links">
+                <a href="#">Contact</a>
+                <a href="#">FAQ</a>
+                <a href="#">Confidentialité</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="carousel.js"></script>
+</body>
+</html>
